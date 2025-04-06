@@ -13,7 +13,7 @@ export default defineConfig({
         content: resolve(__dirname, 'src/content/content.js')
       },
       output: {
-        entryFileNames: '[name].js',
+        entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]'
       }
