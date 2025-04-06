@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Better Filmweb",
+  "version": "1.0",
+  "description": "Chrome web browser extension that extends Filmweb website functionalities.",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["storage", "tabs", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": ["assets/*"],
+    "matches": ["<all_urls>"]
+  }]
+}
