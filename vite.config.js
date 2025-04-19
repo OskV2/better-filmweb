@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
-import { copyFileSync } from 'fs'
 
 export default defineConfig({
   build: {
