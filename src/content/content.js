@@ -8,11 +8,6 @@ const USER_PROFILE_PAGE = currentUrl.match("^https:\/\/www\.filmweb\.pl\/user\/[
 
 // const h2 = RECENTLY_RATED.querySelector('h2');
 
-
-
-
-
-
 // console.log(USER_PROFILE_PAGE)
 
 if (USER_PROFILE_PAGE) {
