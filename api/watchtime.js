@@ -1,5 +1,5 @@
-const getMovieDetails = require('./movie-details');
-const { getSeriesData, getNumberOfEpisodes } = require('./numbers-for-series')
+import { getMovieDetails } from './movie-details'
+import { getSeriesData, getNumberOfEpisodes } from './numbers-for-series'
 
 // * About this function:
 // @param IDs - accepts [] of IDs of movies
@@ -7,13 +7,14 @@ const { getSeriesData, getNumberOfEpisodes } = require('./numbers-for-series')
 
 // ! This function works only for logged user - if user is not logged info filmweb.pl website, there wont be valid cookie, which means that request will not work properly
 
-async function getMoviesWatchtime(IDs) {
+export async function getMoviesWatchtime(IDs) {
   let watchtime = 0;
+  let i = 0;
   try {
-    for (const id in IDs) {
+    for (const id of IDs) {
       const response = await getMovieDetails(id);
-      const data = response.duration;
-      if (data) watchtime = watchtime + data;
+      if (data) watchtime = watchtime + response.duration;
+      i++;
     }
   } catch (error) {
     console.error('Failed in movies watchtime');
@@ -21,13 +22,13 @@ async function getMoviesWatchtime(IDs) {
   return watchtime;
 }
 
-async function getSeriesWatchtime(IDs) {
+export async function getSeriesWatchtime(IDs) {
     try {
       let watchtime = 0;
       let numberOfEpisodes = 0;
       let numberOfEpisodesInSeason = 0;
       let allSeriesData = []
-      
+
       for (const id of IDs) {
         const series = {
           seriesID: id,
@@ -36,17 +37,17 @@ async function getSeriesWatchtime(IDs) {
         }
   
         const seriesData = await getSeriesData(id)
-        const numberOfSeasons = seriesData.seasons  
-        
+        const numberOfSeasons = seriesData.seasons
+
         //  Sometimes when series has only one season, property .seasons doesnt exist in object
         //  When property .seasons doesnt exist i can just get number of episodes from the object
-        if (numberOfSeasons) {  
+        if (numberOfSeasons) {
           for (i = 1; i <= numberOfSeasons; i++) {
             numberOfEpisodesInSeason = await getNumberOfEpisodes(id, numberOfSeasons)
             numberOfEpisodes += numberOfEpisodesInSeason
           }
         } else {
-          numberOfEpisodes = seriesNumbers.episodes
+          numberOfEpisodes = seriesData.episodes
         }
 
         const seriesDetails = await getMovieDetails(id)
@@ -63,17 +64,12 @@ async function getSeriesWatchtime(IDs) {
       return watchtime
     } catch (error) {
       console.error('Failed in series watchtime')
+      console.error(error)
     }
 }
 
-const getOverallWatchtime = async (movieIDS, seriesIDs) => {
+export const getOverallWatchtime = async (movieIDS, seriesIDs) => {
   const moviesWatchtime = await getMoviesWatchtime(movieIDS);
   const seriesWatchtime = await getSeriesWatchtime(seriesIDs);
   return moviesWatchtime + seriesWatchtime
 }
-
-module.exports = {
-  getMoviesWatchtime,
-  getSeriesWatchtime,
-  getOverallWatchtime
-};
