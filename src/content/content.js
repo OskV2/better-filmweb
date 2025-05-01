@@ -1,5 +1,15 @@
 import { userPageRenderer } from './user/user'
 
+//  Insert styling
+document.addEventListener("DOMContentLoaded", () => {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = chrome.runtime.getURL("style-website.css"); 
+  document.head.appendChild(link);
+});
+
+console.log(document.head)
 
 const currentUrl = window.location.href
 console.log('Content script loaded for:', currentUrl)
@@ -14,9 +24,12 @@ const USER_WANT_TO_SEE_SERIES_PAGE = currentUrl.match("^https:\\/\\/www\\.filmwe
 
 
 window.navigation.addEventListener("navigate", (event) => {
-  console.log('location changed!');
+  console.log(`location changed! URL: ${currentUrl}`);
   // const userName = USER_PROFILE_PAGE.toString().split('/')
   // console.log(`You are currently at ${userName[4]} filmweb profile `)
 
-  if (USER_PROFILE_PAGE) userPageRenderer()
+  if (USER_PROFILE_PAGE) {
+    userPageRenderer()
+  }
 })
+
