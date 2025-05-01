@@ -14,7 +14,6 @@ export const watchtimeRatedOverall = async () => {
     const movieIDs = await getListOfIDs(SESSION_COOKIE, CATEGORY_RATED, TYPE_MOVIE);
     const seriesIDs = await getListOfIDs(SESSION_COOKIE, CATEGORY_RATED, TYPE_SERIES);
     const watchtime = await getOverallWatchtime(movieIDs, seriesIDs)
-    console.log(watchtime)
     return watchtime
   } catch (error) {
     console.error('Failed in routes (watchtime rated overall)');
