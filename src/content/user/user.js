@@ -10,43 +10,30 @@ import {
 export const userPageRenderer = async () => {
 
   let htmlContent = `
-    <h2>Better Filmweb</h2>
-    <p>This is a paragraph inside a card.</p>
-    <ul>
-      <li>Obliczanie watchtime'u</li>
-    </ul>
+    <h2 class="bf__title">Better Filmweb</h2>
+    <p class="bf__watchtime">Obliczanie watchtime'u</p>
   `
 
   const div = document.createElement('div')
   div.innerHTML = htmlContent
-  div.style.backgroundColor = 'red'
-  div.style.color = 'white'
-  div.style.padding = '10px'
-  div.style.zIndex = '9999'
-  // div.textContent = 'Obliczanie watchTime\'u'
+  div.classList.add("bf__card");
 
-  waitForElement('div.page__content h2')
+  waitForElement('div.page__content section:nth-of-type(1) div:first-of-type')
   .then((elm) => {
     console.log('Element is ready');
     console.log(elm);
-    elm.appendChild(div);
+    elm.prepend(div);
   })
 
   const watchtimeOverall = await watchtimeRatedOverall()
   const watchtimeMovies = await watchtimeRatedMovies()
   const watchtimeSeries = await watchtimeRatedSeries()
 
-
   htmlContent = `
-    <div>
-      <h2>Better Filmweb</h2>
-      <p>This is a paragraph inside a card.</p>
-      <ul>
-        <li>Watchtime filmów: ${watchtimeMovies}</li>
-        <li>Watchtime seriali: ${watchtimeSeries} </li>
-        <li>Watchtime sumaryczny: ${watchtimeOverall} </li>
-      </ul>
-    </div>
+    <h2 class="bf__title">Better Filmweb</h2>
+    <p class="bf__watchtime">Watchtime filmów: ${watchtimeMovies}</p>
+    <p class="bf__watchtime">Watchtime seriali: ${watchtimeSeries}</p>
+    <p class="bf__watchtime">Watchtime sumaryczny: ${watchtimeOverall}</p>
   `
   div.innerHTML = htmlContent
 }

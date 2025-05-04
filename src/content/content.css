@@ -1,0 +1,14 @@
+.bf__card {
+  /* padding: 20px;
+  border: 1px solid rgb(255, 194, 0);
+  background-color: rgba(255, 194, 0, 0.25); */
+}
+
+.bf__title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.bf__watchtime {
+  font-size: 20px;
+}
