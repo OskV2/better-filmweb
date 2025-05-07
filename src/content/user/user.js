@@ -18,12 +18,9 @@ export const userPageRenderer = async () => {
   div.innerHTML = htmlContent
   div.classList.add("bf__card");
 
-  waitForElement('div.page__content section:nth-of-type(1) div:first-of-type')
-  .then((elm) => {
-    console.log('Element is ready');
-    console.log(elm);
-    elm.prepend(div);
-  })
+  const elm = waitForElement('div.page__content section:nth-of-type(2) div:first-of-type')
+  console.log('Element is ready');
+  elm.prepend(div);
 
   const watchtimeOverall = await watchtimeRatedOverall()
   const watchtimeMovies = await watchtimeRatedMovies()
