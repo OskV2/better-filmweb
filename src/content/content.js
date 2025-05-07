@@ -1,4 +1,8 @@
 import { userPageRenderer } from './user/user'
+import { ratedMoviesPageRenderer } from './user/votes/movies';
+import { ratedSeriesPageRenderer } from './user/votes/series';
+import { wantToSeeMoviesPageRenderer } from './user/wantToSee/movies';
+import { wantToSeeSeriesPageRenderer } from './user/wantToSee/series';
 import './content.css'
 
 //  Insert styling
@@ -11,22 +15,37 @@ document.head.appendChild(link);
 const currentUrl = window.location.href
 console.log('Content script loaded for:', currentUrl)
 
-//  * Routing
-const HOME_PAGE = 'https://www.filmweb.pl/'
-const USER_PROFILE_PAGE = currentUrl.match("^https:\/\/www\.filmweb\.pl\/user\/[^\/]+$");  //  Example:  https://www.filmweb.pl/user/OskV2
-const USER_VOTES_MOVIES_PAGE = currentUrl.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/votes\\/film$");
-const USER_VOTES_SERIES_PAGE = currentUrl.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/votes\\/serial$");
-const USER_WANT_TO_SEE_MOVIES_PAGE = currentUrl.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/wantToSee\\/film$");
-const USER_WANT_TO_SEE_SERIES_PAGE = currentUrl.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/wantToSee\\/serial$");
+let lastPath = "";
 
+function handleRoute(url) {
+  // const path = new URL(url).pathname;
+  if (url === lastPath) return;
+  lastPath = url;
 
-window.navigation.addEventListener("navigate", (event) => {
-  console.log(`location changed! URL: ${currentUrl}`);
-  // const userName = USER_PROFILE_PAGE.toString().split('/')
-  // console.log(`You are currently at ${userName[4]} filmweb profile `)
+  console.log('Handling route:', url);
 
-  if (USER_PROFILE_PAGE) {
-    userPageRenderer()
+  const HOME_PAGE = 'https://www.filmweb.pl/'
+  const USER_PROFILE_PAGE = url.match("^https:\/\/www\.filmweb\.pl\/user\/[^\/]+$");  //  Example:  https://www.filmweb.pl/user/OskV2
+  const USER_VOTES_MOVIES_PAGE = url.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/votes\\/film$");
+  const USER_VOTES_SERIES_PAGE = url.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/votes\\/serial$");
+  const USER_WANT_TO_SEE_MOVIES_PAGE = url.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/wantToSee\\/film$");
+  const USER_WANT_TO_SEE_SERIES_PAGE = url.match("^https:\\/\\/www\\.filmweb\\.pl\\/user\\/[^\\/]+#\\/wantToSee\\/serial$");
+
+  // Route dispatch
+  if (USER_PROFILE_PAGE) userPageRenderer();
+  if (USER_VOTES_MOVIES_PAGE) ratedMoviesPageRenderer();
+  if (USER_VOTES_SERIES_PAGE) ratedSeriesPageRenderer();
+  if (USER_WANT_TO_SEE_MOVIES_PAGE) wantToSeeMoviesPageRenderer();
+  if (USER_WANT_TO_SEE_SERIES_PAGE) wantToSeeSeriesPageRenderer();
+}
+
+handleRoute(location.href);
+
+// Listen for background notifications
+chrome.runtime.onMessage.addListener((msg) => {
+  console.log(`Message received, passed URL: ${msg.url}`)
+
+  if (msg.type === 'urlChanged') {
+    handleRoute(msg.url);
   }
-})
-
+});
