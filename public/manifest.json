@@ -7,10 +7,7 @@
     "default_popup": "index.html"
   },
   "permissions": ["storage", "tabs", "activeTab"],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ],
+  "host_permissions": ["https://www.filmweb.pl/*"],
   "background": {
     "service_worker": "assets/background.js"
   },
@@ -18,7 +15,7 @@
     {
       "matches": ["https://www.filmweb.pl/*"],
       "js": ["assets/content.js"],
-      "run_at": "document_end"
+      "run_at": "document_idle"
     }
   ],
   "web_accessible_resources": [{
