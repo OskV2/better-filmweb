@@ -6,20 +6,22 @@ import {
   watchtimeRatedMovies,
   watchtimeRatedSeries,
 } from '../../../utils/data';
+import { watchtimeParser } from '../../../utils/watchtime-parser';
 
 export const userPageRenderer = async () => {
 
   let htmlContent = `
     <h2 class="bf__title">Better Filmweb</h2>
-    <p class="bf__watchtime">Obliczanie watchtime'u</p>
+    <p class="bf__paragraph">Obliczanie watchtime'u</p>
   `
 
   const div = document.createElement('div')
   div.innerHTML = htmlContent
   div.classList.add("bf__card");
 
-  const elm = waitForElement('div.page__content section:nth-of-type(2) div:first-of-type')
+  const elm = await waitForElement('div.page__content h2')
   console.log('Element is ready');
+  console.log(elm)
   elm.prepend(div);
 
   const watchtimeOverall = await watchtimeRatedOverall()
@@ -28,9 +30,10 @@ export const userPageRenderer = async () => {
 
   htmlContent = `
     <h2 class="bf__title">Better Filmweb</h2>
-    <p class="bf__watchtime">Watchtime filmów: ${watchtimeMovies}</p>
-    <p class="bf__watchtime">Watchtime seriali: ${watchtimeSeries}</p>
-    <p class="bf__watchtime">Watchtime sumaryczny: ${watchtimeOverall}</p>
+    <p class="bf__paragraph">Watchtime filmów: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeMovies)}</span></p>
+    <p class="bf__paragraph">Watchtime seriali: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeSeries)}</span></p>
+    <p class="bf__paragraph">Watchtime sumaryczny: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeOverall)}</span></p>
   `
   div.innerHTML = htmlContent
 }
+

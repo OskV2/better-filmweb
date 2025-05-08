@@ -1,7 +1,5 @@
 .bf__card {
-  /* padding: 20px;
-  border: 1px solid rgb(255, 194, 0);
-  background-color: rgba(255, 194, 0, 0.25); */
+  margin: 20px 0;
 }
 
 .bf__title {
@@ -9,6 +7,11 @@
   font-weight: bold;
 }
 
-.bf__watchtime {
+.bf__paragraph {
   font-size: 20px;
+  font-weight: 400;
+}
+
+.bf__paragraph--yellow {
+  color: #ffc81a;
 }
