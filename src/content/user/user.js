@@ -10,6 +10,12 @@ import { watchtimeParser } from '../../../utils/watchtime-parser';
 
 export const userPageRenderer = async () => {
 
+  //  * If my element already exists return
+  //  * This if statement will avoid rendering my element multiple times
+  if (document.querySelector('.bf__title')) {
+    return
+  }
+
   let htmlContent = `
     <h2 class="bf__title">Better Filmweb</h2>
     <p class="bf__paragraph">Obliczanie watchtime'u</p>
