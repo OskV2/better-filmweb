@@ -26,13 +26,16 @@ export const userPageRenderer = async () => {
   div.classList.add("bf__card");
 
   const elm = await waitForElement('div.page__content h2')
-  console.log('Element is ready');
-  console.log(elm)
   elm.prepend(div);
 
-  const watchtimeOverall = await watchtimeRatedOverall()
-  const watchtimeMovies = await watchtimeRatedMovies()
-  const watchtimeSeries = await watchtimeRatedSeries()
+  // const watchtimeOverall = await watchtimeRatedOverall()
+  // const watchtimeMovies = await watchtimeRatedMovies()
+  // const watchtimeSeries = await watchtimeRatedSeries()
+
+  //  DUMMY VARIABLES SO I DONT SPAM FILMWEB AT SERVER
+  const watchtimeOverall = 3242
+  const watchtimeMovies = 5463
+  const watchtimeSeries = 1234
 
   htmlContent = `
     <h2 class="bf__title">Better Filmweb</h2>
