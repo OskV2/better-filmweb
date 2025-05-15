@@ -1,4 +1,5 @@
 import { waitForElement } from '../../../../utils/wait-for-element'
+import { watchtimeRatedMovies } from '../../../../utils/data';
 import { watchtimeParser } from '../../../../utils/watchtime-parser';
 
 export const ratedMoviesPageRenderer = async () => {
@@ -9,9 +10,7 @@ export const ratedMoviesPageRenderer = async () => {
   
   const elm = await waitForElement('div.page__content section')
 
-  // const watchtimeMovies = await watchtimeRatedMovies()
-  //  DUMMY VARIABLES SO I DONT SPAM FILMWEB AT SERVER
-  const watchtimeMovies = 6969
+  const watchtimeMovies = await watchtimeRatedMovies()
 
   // * Check if my content alredy exists in page (it can happen, because page does not always refresh when changing tabs - sometimes only content changes)
   // * If it exists just overwrite it

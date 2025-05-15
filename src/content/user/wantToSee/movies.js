@@ -1,4 +1,5 @@
 import { waitForElement } from '../../../../utils/wait-for-element'
+import { watchtimeWantToSeeMovies } from '../../../../utils/data';
 import { watchtimeParser } from '../../../../utils/watchtime-parser';
 
 export const wantToSeeMoviesPageRenderer = async () => {
@@ -9,9 +10,7 @@ export const wantToSeeMoviesPageRenderer = async () => {
 
   const elm = await waitForElement('div.page__content section')
 
-  // const watchtimeMovies = await watchtimeRatedMovies()
-  //  DUMMY VARIABLES SO I DONT SPAM FILMWEB AT SERVER
-  const watchtimeMovies = 2137
+  const watchtimeMovies = await watchtimeWantToSeeMovies()
 
   // * Check if my content alredy exists in page (it can happen, because page does not always refresh when changing tabs - sometimes only content changes)
   // * If it exists just overwrite it
@@ -24,7 +23,7 @@ export const wantToSeeMoviesPageRenderer = async () => {
     
     htmlContent = `
       <h2 class="bf__title">Better Filmweb</h2>
-      <p class="bf__paragraph">Watchtime seriali: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeMovies)}</span></p>
+      <p class="bf__paragraph">Watchtime filmów: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeMovies)}</span></p>
     `
     betterFilmweBox.innerHTML = htmlContent
   } else {
@@ -36,7 +35,7 @@ export const wantToSeeMoviesPageRenderer = async () => {
 
     htmlContent = `
       <h2 class="bf__title">Better Filmweb</h2>
-      <p class="bf__paragraph">Watchtime seriali: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeMovies)}</span></p>
+      <p class="bf__paragraph">Watchtime filmów: <span class="bf__paragraph--yellow">${watchtimeParser(watchtimeMovies)}</span></p>
     `
 
     div.innerHTML = htmlContent

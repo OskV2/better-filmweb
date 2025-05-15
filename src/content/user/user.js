@@ -28,14 +28,9 @@ export const userPageRenderer = async () => {
   const elm = await waitForElement('div.page__content h2')
   elm.prepend(div);
 
-  // const watchtimeOverall = await watchtimeRatedOverall()
-  // const watchtimeMovies = await watchtimeRatedMovies()
-  // const watchtimeSeries = await watchtimeRatedSeries()
-
-  //  DUMMY VARIABLES SO I DONT SPAM FILMWEB AT SERVER
-  const watchtimeOverall = 3242
-  const watchtimeMovies = 5463
-  const watchtimeSeries = 1234
+  const watchtimeOverall = await watchtimeRatedOverall()
+  const watchtimeMovies = await watchtimeRatedMovies()
+  const watchtimeSeries = await watchtimeRatedSeries()
 
   htmlContent = `
     <h2 class="bf__title">Better Filmweb</h2>
