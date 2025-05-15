@@ -12,7 +12,8 @@ export const getSeriesData = async (id) => {
   }
 }
 
-//  * This function returns the number of episodes for a specific season in a series with the given id
+// ! DEPRECATED - not used anymore sice commit 4286e94cf9c295e70ad09deedd6590303c5b307e
+// * This function returns the number of episodes for a specific season in a series with the given id
 export const getNumberOfEpisodes = async (id, season) => {
   try {
     const response = await fetch(`https://www.filmweb.pl/api/v1/serial/${id}/season/${season}/episodes?loadDates=false`)

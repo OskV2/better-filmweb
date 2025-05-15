@@ -12,8 +12,8 @@ link.type = "text/css";
 link.href = chrome.runtime.getURL("assets/content.css");
 document.head.appendChild(link);
 
-const currentUrl = window.location.href
-console.log('Content script loaded for:', currentUrl)
+// const currentUrl = window.location.href
+// console.log('Content script loaded for:', currentUrl)
 
 let lastPath = "";
 
@@ -21,8 +21,6 @@ function handleRoute(url) {
   // const path = new URL(url).pathname;
   if (url === lastPath) return;
   lastPath = url;
-
-  console.log('Handling route:', url);
 
   const HOME_PAGE = 'https://www.filmweb.pl/'
   const USER_PROFILE_PAGE = url.match("^https:\/\/www\.filmweb\.pl\/user\/[^\/]+$");  //  Example:  https://www.filmweb.pl/user/OskV2
