@@ -13,7 +13,7 @@ export async function getMoviesWatchtime(IDs) {
   try {
     for (const id of IDs) {
       const response = await getMovieDetails(id);
-      if (data) watchtime = watchtime + response.duration;
+      if (response.duration) watchtime = watchtime + response.duration;
       i++;
     }
   } catch (error) {
