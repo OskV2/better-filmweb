@@ -17,3 +17,26 @@ export const waitForElement = (selector) => {
       });
   });
 }
+
+export const waitForElements = (selector) => {
+  
+  return new Promise(resolve => {
+    const elements = document.querySelectorAll(selector);
+    if (elements.length) {
+      return resolve(elements);
+    }
+
+    const observer = new MutationObserver(() => {
+      const elements = document.querySelectorAll(selector);
+      if (elements.length) {
+        observer.disconnect();
+        resolve(elements);
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  });
+};

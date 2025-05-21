@@ -50,11 +50,10 @@ export const userPageRenderer = async () => {
   div2.classList.add("bf__card");
 
   const elm2 = await waitForElement('#app > section:nth-child(4) > div:nth-child(1) > h2')  // * This will select h2 with text "Chcę zobaczyć"
-  console.log(elm2)
   elm2.prepend(div2)
 
   const w2sMovies = await watchtimeWantToSeeMovies()
-  const w2sSeries = await watchtimeWantToSeeSeries()
+  const [w2sSeries, w2sSeriesData] = await watchtimeWantToSeeSeries()
   const w2sOverall = await watchtimeWantToSeeOverall()
 
   const loadedW2sContent = `
