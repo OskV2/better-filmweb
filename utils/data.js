@@ -124,7 +124,9 @@ export const watchtimeWantToSeeOverall = async () => {
 //  Watchtime of series specified by the id parameter
 export const watchtimeSingleSeries = async (id) => {
   try {
-    const watchtime = await getSeriesWatchtime(id)
+    // * Fuckin' hell now my app is so spaghetti coded that i need to pass array from 1 element because function getSeriesWatchtime is prepared to accept array of IDs
+    // * Also doing some fancy array destructuring as a result because function returns an array
+    const [watchtime] = await getSeriesWatchtime([id])
     return watchtime
   } catch (error) {
     console.error('Failed in routes');

@@ -12,10 +12,6 @@
   font-weight: 400;
 }
 
-.bf__paragraph--yellow {
-  color: #ffc81a;
-}
-
 .bf__series-watchtime {
   font-size: 14px;
   font-weight: 400;
@@ -23,6 +19,15 @@
   text-align: center;
 }
 
-.bf__series-watchtime--yellow {
+.bf__single-series-watchtime {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.bf__paragraph--yellow,
+.bf__series-watchtime--yellow,
+.bf__single-series-watchtime--yellow {
   color: #ffc81a;
 }
