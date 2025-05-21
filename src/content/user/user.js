@@ -33,14 +33,14 @@ export const userPageRenderer = async () => {
   elm.prepend(div);
 
   const ratedMovies = await watchtimeRatedMovies()
-  const ratedSeries = await watchtimeRatedSeries()
+  const [ratedSeries, ratedSeriesData] = await watchtimeRatedSeries()
   const ratedOverall = await watchtimeRatedOverall()
 
   const loadedRatedContent = `
     <h2 class="bf__title">Better Filmweb - ocenione</h2>
-    <p class="bf__paragraph">Watchtime filmów: <span class="bf__paragraph--yellow">${watchtimeParser(ratedOverall)}</span></p>
-    <p class="bf__paragraph">Watchtime seriali: <span class="bf__paragraph--yellow">${watchtimeParser(ratedMovies)}</span></p>
-    <p class="bf__paragraph">Watchtime sumaryczny: <span class="bf__paragraph--yellow">${watchtimeParser(ratedSeries)}</span></p>
+    <p class="bf__paragraph">Watchtime filmów: <span class="bf__paragraph--yellow">${watchtimeParser(ratedMovies)}</span></p>
+    <p class="bf__paragraph">Watchtime seriali: <span class="bf__paragraph--yellow">${watchtimeParser(ratedSeries)}</span></p>
+    <p class="bf__paragraph">Watchtime sumaryczny: <span class="bf__paragraph--yellow">${watchtimeParser(ratedOverall)}</span></p>
   `
   div.innerHTML = loadedRatedContent
 

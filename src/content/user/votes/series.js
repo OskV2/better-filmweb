@@ -10,7 +10,7 @@ export const ratedSeriesPageRenderer = async () => {
 
   const elm = await waitForElement('div.page__content section')
 
-  const watchtimeSeries = await watchtimeRatedSeries()
+  const [watchtimeSeries, seriesData] = await watchtimeRatedSeries()
 
   // * Check if my content alredy exists in page (it can happen, because page does not always refresh when changing tabs - sometimes only content changes)
   // * If it exists just overwrite it

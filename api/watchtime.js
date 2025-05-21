@@ -64,15 +64,9 @@ export async function getSeriesWatchtime(IDs) {
       for(const series of allSeriesData) {
         watchtime = watchtime + (series.numberOfEpisodes * series.avgEpisodeDuration)
       }
-      return watchtime
+      return [watchtime, allSeriesData]
     } catch (error) {
       console.error('Failed in series watchtime')
       console.error(error)
     }
-}
-
-export const getOverallWatchtime = async (movieIDS, seriesIDs) => {
-  const moviesWatchtime = await getMoviesWatchtime(movieIDS);
-  const seriesWatchtime = await getSeriesWatchtime(seriesIDs);
-  return moviesWatchtime + seriesWatchtime
 }
