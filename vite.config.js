@@ -1,21 +1,13 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import react from '@vitejs/plugin-react'
+import { crx } from '@crxjs/vite-plugin'
+import manifest from './manifest.config.js'
 
-export default defineConfig({
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        popup: resolve(__dirname, 'index.html'),
-        background: resolve(__dirname, 'src/background/background.js'),
-        content: resolve(__dirname, 'src/content/content.js')
-      },
-      output: {
-        entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[ext]'
-      }
-    }
-  }
-})
+export default defineConfig(({ command }) => ({
+  plugins: [react(), crx({ manifest })],
+  build: { outDir: command === 'serve' ? 'dist-dev' : 'dist', emptyOutDir: true },
+  server: {
+    host: '127.0.0.1', port: 5173, strictPort: true,
+    cors: { origin: [/^chrome-extension:\/\//] },
+  },
+}))
