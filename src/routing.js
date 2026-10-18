@@ -1,24 +1,13 @@
-import { userPageRenderer } from './user/user'
-import { ratedMoviesPageRenderer } from './user/votes/movies';
-import { ratedSeriesPageRenderer } from './user/votes/series';
-import { wantToSeeMoviesPageRenderer } from './user/wantToSee/movies';
-import { wantToSeeSeriesPageRenderer } from './user/wantToSee/series';
-import { singleSeriesPageRenderer } from './serial/serial';
-import './content.css'
-
-//  Insert styling
-const link = document.createElement("link");
-link.rel = "stylesheet";
-link.type = "text/css";
-link.href = chrome.runtime.getURL("assets/content.css");
-document.head.appendChild(link);
-
-// const currentUrl = window.location.href
-// console.log('Content script loaded for:', currentUrl)
+import { userPageRenderer } from './routes/user/[username]/index.js'
+import { ratedMoviesPageRenderer } from './routes/user/[username]/votes/film.js';
+import { ratedSeriesPageRenderer } from './routes/user/[username]/votes/serial.js';
+import { wantToSeeMoviesPageRenderer } from './routes/user/[username]/wantToSee/film.js';
+import { wantToSeeSeriesPageRenderer } from './routes/user/[username]/wantToSee/serial.js';
+import { singleSeriesPageRenderer } from './routes/serial/[slug].js';
 
 let lastPath = "";
 
-function handleRoute(url) {
+export function handleRoute(url) {
   // const path = new URL(url).pathname;
   if (url === lastPath) return;
   lastPath = url;
@@ -33,20 +22,23 @@ function handleRoute(url) {
   
   // Route dispatch
   if (USER_PROFILE_PAGE) userPageRenderer();
-  if (USER_VOTES_MOVIES_PAGE) ratedMoviesPageRenderer();
-  if (USER_VOTES_SERIES_PAGE) ratedSeriesPageRenderer();
-  if (USER_WANT_TO_SEE_MOVIES_PAGE) wantToSeeMoviesPageRenderer();
-  if (USER_WANT_TO_SEE_SERIES_PAGE) wantToSeeSeriesPageRenderer();
+  if (USER_VOTES_MOVIES_PAGE) {
+    console.log('rated movies')
+    ratedMoviesPageRenderer();
+  }
+  if (USER_VOTES_SERIES_PAGE) {
+    console.log('rated series')
+    ratedSeriesPageRenderer();
+  }
+  if (USER_WANT_TO_SEE_MOVIES_PAGE) {
+    console.log('want2see movies')
+    wantToSeeMoviesPageRenderer();
+  }
+  if (USER_WANT_TO_SEE_SERIES_PAGE) {
+    console.log('want2see series')
+    wantToSeeSeriesPageRenderer();
+  }
+    
   if (SINGLE_SERIES_PAGE) singleSeriesPageRenderer(url)
 }
 
-handleRoute(location.href);
-
-// Listen for background notifications
-chrome.runtime.onMessage.addListener((msg) => {
-  console.log(`Message received, passed URL: ${msg.url}`)
-
-  if (msg.type === 'urlChanged') {
-    handleRoute(msg.url);
-  }
-});
