@@ -28,8 +28,8 @@ export const watchtimeRatedMovies = async () => {
  * Watchtime of rated series
  */
 export const watchtimeRatedSeries = async () => {
-    const cachedWatchtime = await getCachedData("WATCHTIME_RATED_SERIES");
-    if (cachedWatchtime !== null) return cachedWatchtime
+    const cached = await getCachedData("WATCHTIME_RATED_SERIES");
+    if (cached !== null) return cached
 
     const ids = await fetchTitleIds(SESSION_COOKIE, CATEGORY_RATED, TYPE_SERIES);
     const seriesData = await loadSeriesData(ids)
