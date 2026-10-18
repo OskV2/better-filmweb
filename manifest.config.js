@@ -8,10 +8,10 @@ export default defineManifest({
   action: { default_popup: 'index.html' },
   permissions: ['storage', 'tabs', 'activeTab'],
   host_permissions: ['https://www.filmweb.pl/*'],
-  background: { service_worker: 'src/background/background.js', type: 'module' },
+  background: { service_worker: 'src/entrypoints/background.js', type: 'module' },
   content_scripts: [{
     matches: ['https://www.filmweb.pl/*'],
-    js: ['src/content/content.js'],
+    js: ['src/entrypoints/content.js'],
     run_at: 'document_idle',
   }],
 })
